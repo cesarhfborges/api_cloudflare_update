@@ -2,6 +2,7 @@ import os
 import requests
 from colors import Imprimir
 from dotenv import load_dotenv
+from datetime import date
 
 load_dotenv()
 
@@ -17,10 +18,10 @@ headers = {
     'Content-Type': 'application/json',
 }
 
-Imprimir.printInfo(f'Obtendo endereco IP')
+Imprimir.printInfo(f'{date.today()} - Obtendo endereco IP')
 IP = requests.get('https://checkip.amazonaws.com').text
 IP = IP.replace('\n', '')
-Imprimir.printSuccess(f'Meu IP: {IP}')
+Imprimir.printSuccess(f'{date.today()} - Meu IP: {IP}')
 
 
 def getDNSRecords():
@@ -44,11 +45,11 @@ def updateDNSRecord(id, nome, ip):
     return parse
 
 
-Imprimir.printInfo(f'Conectando a Cloudflare')
+Imprimir.printInfo(f'{date.today()} - Conectando a Cloudflare')
 zonas = getDNSRecords()
-Imprimir.printSuccess(f'Registros DNS: {len(zonas)}')
+Imprimir.printSuccess(f'{date.today()} - Registros DNS: {len(zonas)}')
 
 for zona in zonas:
-    Imprimir.printInfo(f'Efetuando atualização {zona["name"]} -> {IP}')
+    Imprimir.printInfo(f'{date.today()} - Efetuando atualização {zona["name"]} -> {IP}')
     updateDNSRecord(zona['id'], zona['name'], IP)
-    Imprimir.printSuccess(f'Efetuando atualização {zona["name"]} -> {IP}')
+    Imprimir.printSuccess(f'{date.today()} - Efetuando atualização {zona["name"]} -> {IP}')
