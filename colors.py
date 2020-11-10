@@ -31,3 +31,11 @@ class Imprimir:
         :rtype: void
         """
         print(Imprimir.OKBLUE + self + Imprimir.ENDC)
+
+
+    def printDanger(self: str):
+        """
+        :argument self
+        :rtype: void
+        """
+        print(Imprimir.FAIL + self + Imprimir.ENDC)

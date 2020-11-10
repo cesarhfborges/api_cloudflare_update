@@ -50,6 +50,10 @@ zonas = getDNSRecords()
 Imprimir.printSuccess(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Registros DNS: {len(zonas)}')
 
 for zona in zonas:
-    Imprimir.printInfo(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Efetuando atualização {zona["name"]} -> {IP}')
-    updateDNSRecord(zona['id'], zona['name'], IP)
-    Imprimir.printSuccess(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Efetuando atualização {zona["name"]} -> {IP}')
+    Imprimir.printDanger(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Anterior {zona["name"]} <- {zona["content"]}')
+    Imprimir.printSuccess(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Novo {zona["name"]} -> {IP}')
+    if IP != zona['content']:
+        updateDNSRecord(zona['id'], zona['name'], IP)
+        Imprimir.printInfo(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Atualizado {zona["name"]} -> {IP}')
+    else:
+        Imprimir.printInfo(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - não é necessario realizar update')
