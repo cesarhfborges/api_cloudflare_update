@@ -2,7 +2,7 @@ import os
 import requests
 from colors import Imprimir
 from dotenv import load_dotenv
-from datetime import date
+from datetime import datetime
 
 load_dotenv()
 
@@ -18,10 +18,10 @@ headers = {
     'Content-Type': 'application/json',
 }
 
-Imprimir.printInfo(f'{date.today()} - Obtendo endereco IP')
+Imprimir.printInfo(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Obtendo endereco IP')
 IP = requests.get('https://checkip.amazonaws.com').text
 IP = IP.replace('\n', '')
-Imprimir.printSuccess(f'{date.today()} - Meu IP: {IP}')
+Imprimir.printSuccess(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Meu IP: {IP}')
 
 
 def getDNSRecords():
@@ -45,11 +45,11 @@ def updateDNSRecord(id, nome, ip):
     return parse
 
 
-Imprimir.printInfo(f'{date.today()} - Conectando a Cloudflare')
+Imprimir.printInfo(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Conectando a Cloudflare')
 zonas = getDNSRecords()
-Imprimir.printSuccess(f'{date.today()} - Registros DNS: {len(zonas)}')
+Imprimir.printSuccess(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Registros DNS: {len(zonas)}')
 
 for zona in zonas:
-    Imprimir.printInfo(f'{date.today()} - Efetuando atualização {zona["name"]} -> {IP}')
+    Imprimir.printInfo(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Efetuando atualização {zona["name"]} -> {IP}')
     updateDNSRecord(zona['id'], zona['name'], IP)
-    Imprimir.printSuccess(f'{date.today()} - Efetuando atualização {zona["name"]} -> {IP}')
+    Imprimir.printSuccess(f'{(datetime.today()).strftime("%d-%m-%Y %H:%M:%S")} - Efetuando atualização {zona["name"]} -> {IP}')
